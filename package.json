@@ -1,7 +1,7 @@
 {
 	"name": "json-helper",
 	"description": "JSON helper",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"main": "json-helper.js",
 	"keywords": [ "json", "helper", "fs" ],
 	"author": "vlad309523",

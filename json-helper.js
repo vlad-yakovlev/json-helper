@@ -74,6 +74,19 @@ const json = {
 		
 		await fs.writeFileSync(path, text);
 	},
+	
+	
+	appendListSync(path, data) {
+		let text = JSON.stringify(data) + '\n';
+		
+		fs.appendFileSync(path, text);
+	},
+	
+	async appendListSync(path, data) {
+		let text = JSON.stringify(data) + '\n';
+		
+		await fs.appendFileAsync(path, text);
+	},
 };
 
 
