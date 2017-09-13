@@ -1,11 +1,14 @@
 {
 	"name": "json-helper",
 	"description": "JSON helper",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"main": "json-helper.js",
 	"keywords": [ "json", "helper", "fs" ],
 	"author": "vlad309523",
 	"license": "MIT",
 	"readme": "README.md",
-	"homepage": "https://bitbucket.org/vlad309523/json-helper"
+	"homepage": "https://bitbucket.org/vlad309523/json-helper",
+	"dependencies": {
+		"fs-extra-promise": "^1.0.1"
+	}
 }
