@@ -41,7 +41,7 @@ const json = {
 	},
 	
 	async readListAsync(path) {
-		let text = await fs.readFileSync(path, {
+		let text = await fs.readFileAsync(path, {
 			encoding: 'utf8',
 		});
 		
@@ -69,10 +69,10 @@ const json = {
 		fs.writeFileSync(path, text);
 	},
 	
-	async writeListSync(path, data) {
+	async writeListAsync(path, data) {
 		let text = data.map(item => JSON.stringify(item)).join('\n') + '\n';
 		
-		await fs.writeFileSync(path, text);
+		await fs.writeFileAsync(path, text);
 	},
 	
 	
@@ -82,7 +82,7 @@ const json = {
 		fs.appendFileSync(path, text);
 	},
 	
-	async appendListSync(path, data) {
+	async appendListAsync(path, data) {
 		let text = JSON.stringify(data) + '\n';
 		
 		await fs.appendFileAsync(path, text);
