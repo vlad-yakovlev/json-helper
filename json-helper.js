@@ -1,91 +1,175 @@
-'use strict';
+const Promise = require('bluebird');
+
+const fs = Promise.promisifyAll(require('fs'));
 
 
-const fs = require('fs-extra-promise');
+/**
+ * @module json
+ */
 
 
 const json = {
-    parseList(text) {
-        try {
-            return JSON.parse(text);
-        } catch (err) {
-            return text.split('\n').filter(site => site).map(site => JSON.parse(site))
-        }
-    },
+	/**
+	 * Parse JSON-list
+	 * @alias module:json
+	 * @param {!string} content
+	 * @param {?boolean} strict - Strict mode, only the list is allowed
+	 * @returns {Array.<*>}
+	 */
+	parseList(content, strict = false) {
+		try {
+			if (strict) {
+				throw new Error('JSON parsing is not allowed in strict mode');
+			}
+
+			const data = JSON.parse(content);
+
+			if (! (data instanceof Array)) {
+				throw new Error('Data is not an Array');
+			}
+
+			return data;
+		} catch (err) {
+			return content.split('\n').filter(line => line).map(JSON.parse);
+		}
+	},
 
 
-    
-    readSync(path) {
-        let text = fs.readFileSync(path, {
-            encoding: 'utf8',
-        });
-
-        return JSON.parse(text);
-    },
-    
-    async readAsync(path) {
-	    let text = await fs.readFileAsync(path, {
-		    encoding: 'utf8',
-	    });
-	
-	    return JSON.parse(text);
-    },
-	
-	
-	readListSync(path) {
-		let text = fs.readFileSync(path, {
+	/**
+	 * Reads a file with JSON and returns an object
+	 * @alias module:json
+	 * @param {!string} path
+	 * @returns {*}
+	 */
+	readSync(path) {
+		const content = fs.readFileSync(path, {
 			encoding: 'utf8',
 		});
-		
-		return json.parseList(text);
+
+		return JSON.parse(content);
 	},
-	
-	async readListAsync(path) {
-		let text = await fs.readFileAsync(path, {
+
+	/**
+	 * Reads a file with JSON and returns an object
+	 * @alias module:json
+	 * @param {!string} path
+	 * @returns {Promise.<*>}
+	 */
+	async readAsync(path) {
+		const content = await fs.readFileAsync(path, {
 			encoding: 'utf8',
 		});
-		
-		return json.parseList(text);
+
+		return JSON.parse(content);
 	},
-	
-	
-	
+
+
+	/**
+	 * Reads a file with JSON-list or JSON (if not strict) and returns an object
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {?boolean} strict - Strict mode, only the list is allowed
+	 * @returns {Array.<*>}
+	 */
+	readListSync(path, strict = false) {
+		const content = fs.readFileSync(path, {
+			encoding: 'utf8',
+		});
+
+		return json.parseList(content, strict);
+	},
+
+	/**
+	 * Reads a file with JSON-list or JSON (if not strict) and returns an object
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {?boolean} strict - Strict mode, only the list is allowed
+	 * @returns {Promise.<Array.<*>>}
+	 */
+	async readListAsync(path, strict) {
+		const content = await fs.readFileAsync(path, {
+			encoding: 'utf8',
+		});
+
+		return json.parseList(content, strict);
+	},
+
+
+	/**
+	 * Writes data to JSON file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!*} data
+	 */
 	writeSync(path, data) {
-		let text = JSON.stringify(data);
-		
-		fs.writeFileSync(path, text);
+		const content = JSON.stringify(data);
+
+		fs.writeFileSync(path, content);
 	},
-	
+
+	/**
+	 * Writes data to JSON file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!*} data
+	 * @returns {Promise}
+	 */
 	async writeAsync(path, data) {
-		let text = JSON.stringify(data);
-		
-		await fs.writeFileAsync(path, text);
+		const content = JSON.stringify(data);
+
+		await fs.writeFileAsync(path, content);
 	},
-	
-	
+
+
+	/**
+	 * Writes Array to JSON-list file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!Array.<*>} data
+	 */
 	writeListSync(path, data) {
-		let text = data.map(item => JSON.stringify(item)).join('\n') + '\n';
-		
-		fs.writeFileSync(path, text);
+		const content = `${data.map(item => JSON.stringify(item)).join('\n')}\n`;
+
+		fs.writeFileSync(path, content);
 	},
-	
+
+	/**
+	 * Writes Array to JSON-list file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!Array.<*>} data
+	 * @returns {Promise}
+	 */
 	async writeListAsync(path, data) {
-		let text = data.map(item => JSON.stringify(item)).join('\n') + '\n';
-		
-		await fs.writeFileAsync(path, text);
+		const content = `${data.map(item => JSON.stringify(item)).join('\n')}\n`;
+
+		await fs.writeFileAsync(path, content);
 	},
-	
-	
+
+
+	/**
+	 * Appends data to JSON-list file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!*} data
+	 */
 	appendListSync(path, data) {
-		let text = JSON.stringify(data) + '\n';
-		
-		fs.appendFileSync(path, text);
+		const content = `${JSON.stringify(data)}\n`;
+
+		fs.appendFileSync(path, content);
 	},
-	
+
+	/**
+	 * Appends data to JSON-list file
+	 * @alias module:json
+	 * @param {!string} path
+	 * @param {!*} data
+	 * @returns {Promise}
+	 */
 	async appendListAsync(path, data) {
-		let text = JSON.stringify(data) + '\n';
-		
-		await fs.appendFileAsync(path, text);
+		const content = `${JSON.stringify(data)}\n`;
+
+		await fs.appendFileAsync(path, content);
 	},
 };
 
