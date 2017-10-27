@@ -1,0 +1,76 @@
+{
+	"extends": "eslint-config-airbnb-base",
+	"parserOptions": {
+		"ecmaVersion": 2017,
+		"sourceType": "script",
+		"allowImportExportEverywhere": false,
+		"codeFrame": false
+	},
+	"plugins": [
+		"json"
+	],
+	"root": true,
+	"rules": {
+		"arrow-parens": [
+			"error",
+			"as-needed"
+		],
+		"class-methods-use-this": "off",
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"max-len": [
+			"error",
+			160
+		],
+		"no-await-in-loop": "off",
+		"no-bitwise": "off",
+		"no-loop-func": "off",
+		"no-mixed-operators": "warn",
+		"no-nested-ternary": "off",
+		"no-param-reassign": [
+			"error",
+			{
+				"props": false
+			}
+		],
+		"no-plusplus": "off",
+		"no-restricted-syntax": "off",
+		"no-shadow": "warn",
+		"no-tabs": "off",
+		"prefer-destructuring": [
+			"error",
+			{
+				"AssignmentExpression": {
+					"array": false,
+					"object": false
+				},
+				"VariableDeclarator": {
+					"array": true,
+					"object": true
+				}
+			},
+			{
+				"enforceForRenamedProperties": false
+			}
+		],
+		"radix": "off",
+		"space-unary-ops": [
+			"error",
+			{
+				"overrides": {
+					"!": true,
+					"!!": true
+				}
+			}
+		],
+		"strict": [
+			"error",
+			"never"
+		]
+	}
+}
