@@ -1,7 +1,7 @@
 {
   "name": "json-helper",
   "description": "JSON helper",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "main": "index.js",
   "keywords": [
     "json",
@@ -23,28 +23,25 @@
     "babel-core": "^6.26.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.1",
-    "eslint": "^4.7.2",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-json": "^1.2.0",
     "husky": "^0.14.3",
     "jsdoc-babel": "^0.3.0",
-    "jsdoc-to-markdown": "^3.0.0",
-    "lint-staged": "^4.3.0"
+    "jsdoc-to-markdown": "^3.0.3",
+    "lint-staged": "^6.0.0"
   },
   "scripts": {
-    "lint": "eslint --ext json --ext js .",
-    "lint:fix": "eslint --ext json --ext js --fix .",
+    "lint": "eslint --ext js,json .",
+    "lint:fix": "eslint --ext js,json --fix .",
     "jsdoc": "jsdoc2md --configure .jsdocconfig json-helper.js",
     "jsdoc:readme": "jsdoc2md --template README.hbs --configure .jsdocconfig json-helper.js > README.md",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint "
-    ],
-    "*.json": [
-      "eslint --ext json "
+    "*.{js, json}": [
+      "eslint --ext js,json,vue"
     ]
   }
 }

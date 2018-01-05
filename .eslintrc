@@ -1,21 +1,22 @@
 {
-	"extends": "eslint-config-airbnb-base",
+	"root": true,
+	"extends": "airbnb-base",
+	"plugins": [
+		"json"
+	],
 	"parserOptions": {
 		"ecmaVersion": 2017,
 		"sourceType": "script",
 		"allowImportExportEverywhere": false,
 		"codeFrame": false
 	},
-	"plugins": [
-		"json"
-	],
-	"root": true,
 	"rules": {
-		"arrow-parens": [
+		"brace-style": [
 			"error",
-			"as-needed"
+			"1tbs"
 		],
 		"class-methods-use-this": "off",
+		"func-names": "off",
 		"indent": [
 			"error",
 			"tab",
@@ -28,25 +29,26 @@
 			160
 		],
 		"no-await-in-loop": "off",
-		"no-bitwise": "off",
-		"no-loop-func": "off",
-		"no-mixed-operators": "warn",
-		"no-nested-ternary": "off",
-		"no-param-reassign": [
+		"no-continue": "off",
+		"no-else-return": "off",
+		"no-empty": [
 			"error",
 			{
-				"props": false
+				"allowEmptyCatch": true
 			}
 		],
+		"no-loop-func": "off",
+		"no-nested-ternary": "off",
+		"no-new": "off",
+		"no-param-reassign": "off",
 		"no-plusplus": "off",
-		"no-restricted-syntax": "off",
-		"no-shadow": "warn",
+		"no-shadow": "off",
 		"no-tabs": "off",
 		"prefer-destructuring": [
 			"error",
 			{
 				"AssignmentExpression": {
-					"array": false,
+					"array": true,
 					"object": false
 				},
 				"VariableDeclarator": {
@@ -58,7 +60,6 @@
 				"enforceForRenamedProperties": false
 			}
 		],
-		"radix": "off",
 		"space-unary-ops": [
 			"error",
 			{
